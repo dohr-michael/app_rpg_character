@@ -1,0 +1,17 @@
+$defaultNbCols: 12 !default;
+$defaultGutter: 20px !default;;
+
+@mixin row($gutter:$defaultGutter) {
+  display: flex;
+  flex-direction: row;
+  margin-left: -$gutter;
+  > * {
+    flex: 0 0 auto;
+    display: block; /* IE fix */
+    margin-left: $defaultGutter;
+  }
+}
+
+@mixin colWidth($colWidth:1, $nbCols:$defaultNbCols, $gutter:$defaultGutter) {
+  width: calc(100% / #{$nbCols} - #{$gutter});
+}

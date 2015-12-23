@@ -1,0 +1,30 @@
+@import 'mixin';
+
+.core {
+  background-color: rgba(147,128,108,.1);
+  .bar {
+    padding: 10px 10px;
+    & > * {
+      text-align: center;
+      & > * {
+        padding: 10px 10px;
+      }
+    }
+    .logo {
+      & > * {
+      }
+    }
+    .title {
+      & > * {
+      }
+    }
+    .player {
+      & > * {
+      }
+    }
+  }
+}
+
+.title {
+
+}
