@@ -1,21 +1,92 @@
-import _                                from 'lodash';
-import React, { Component, PropTypes }  from 'react';
-import classNames                       from 'classnames';
-import ViewStoreListener                from 'utils/ViewStoreListener';
+import _                                        from 'lodash';
+import React, { Component, PropTypes }          from 'react';
+import classNames                               from 'classnames';
+import Grid, { Cell }                           from 'components/Grid';
 
-import MainStore                        from './MainStore';
-import * as Actions                     from './Actions';
-import styles                           from './Main.scss';
-import Information                      from './parts/Information';
-import Attributes                       from './parts/Attributes';
-import Skills                           from './parts/Skills';
-import Advantages                       from './parts/Advantages';
-import Others                           from './parts/Others';
+import ViewStoreListener                        from 'utils/ViewStoreListener';
+import CharacterSheet,{ CharacterSheetItem }    from 'model/CharacterSheet';
+import Fields, { ValueLink }                    from 'components/Fields';
+import MainStore                                from './MainStore';
+import * as Actions                             from './Actions';
+import styles                                   from './Main.scss';
+import * as tools                               from 'utils/tools';
 
-/**
- * @author michaeldohr
- * @since 21/12/15
- */
+
+class CharacterSheetView extends Component {
+
+    static propTypes = {
+        characterSheet: PropTypes.instanceOf( CharacterSheet ).isRequired
+    };
+
+    createValueLink( item:CharacterSheetItem ) {
+        return new ValueLink( item.value, newValue => {
+            item.value = newValue;
+        } );
+    }
+
+    buildGroup( item:CharacterSheetItem, fromGroup:boolean ) {
+        const subItems = item.subItems.map( item => this.buildItem( item, true ) );
+        if( fromGroup ) {
+            return (
+                <Cell key={ tools.guid() }>
+                    <Grid>
+                        <Cell full={true}>
+                            { item.name }
+                        </Cell>
+                    </Grid>
+                    <Grid>
+                        <Cell full={true}>
+                            { subItems }
+                        </Cell>
+                    </Grid>
+                </Cell>
+            )
+        }
+        return (
+            <div key={ tools.guid() }>
+                <Grid>
+                    <Cell full={true}>
+                        { item.name } <br />
+                        <hr />
+                    </Cell>
+                </Grid>
+                <Grid>
+                    { subItems }
+                </Grid>
+            </div>
+        );
+    }
+
+    buildItem( item:CharacterSheetItem, fromGroup:boolean ) {
+        let result;
+        switch( item.type ) {
+            case 'group':
+                result = this.buildGroup( item, fromGroup );
+                break;
+            default:
+                result = (
+                    <Fields key={ tools.guid() }
+                            title={ item.name }
+                            valueLink={ this.createValueLink( item ) }/>
+                );
+        }
+        return result;
+    }
+
+    render() {
+        let items;
+        if( this.props.characterSheet.items ) {
+            items = this.props.characterSheet.items.map( item => this.buildItem( item, false ) );
+        }
+        return (
+            <div>
+                { items }
+            </div>
+        );
+    }
+}
+
+
 export default class Main extends Component {
 
     static propTypes = {};
@@ -36,13 +107,7 @@ export default class Main extends Component {
         let comp;
         if( this.state.characterSheet ) {
             comp = (
-                <div>
-                    <Information />
-                    <Attributes />
-                    <Skills />
-                    <Advantages />
-                    <Others />
-                </div>
+                <CharacterSheetView characterSheet={ this.state.characterSheet }/>
             )
         } else {
             comp = (

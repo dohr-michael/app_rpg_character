@@ -1,8 +1,9 @@
 import Store          from 'utils/Store';
 import * as Actions   from 'charactersheet/Actions';
 import Player         from 'model/Player';
-import AppMainStore   from 'main/MainStore';
 import CharacterSheet from 'model/CharacterSheet';
+import * as Vampire   from 'model/VampireCharacter';
+import AppMainStore   from 'main/MainStore';
 
 class MainStore extends Store {
 
@@ -16,14 +17,13 @@ class MainStore extends Store {
 
     appStoreChange() {
         if( this.characterSheet ) {
-            this.characterSheet.general.player = AppMainStore.player;
+            this.characterSheet.player = AppMainStore.player;
             this.emitChange();
         }
     }
 
     initCreation() {
-        this.characterSheet = new CharacterSheet();
-        this.characterSheet.general.player = AppMainStore.player;
+        this.characterSheet = Vampire.empty(AppMainStore.player);
         this.emitChange();
     }
 

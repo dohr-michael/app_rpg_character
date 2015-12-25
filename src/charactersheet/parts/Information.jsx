@@ -1,48 +1,71 @@
 import _                                from 'lodash';
 import React, { Component, PropTypes }  from 'react';
 import classNames                       from 'classnames';
+import Grid, { Cell }                   from 'components/Grid';
+import Fields, { ValueLink }            from 'components/Fields';
 
-/**
- * @author michaeldohr
- * @since 21/12/15
- */
+import { General, Archetype, Vampire }  from 'CharacterSheetOld.js';
+
+
 export default class Informations extends Component {
 
-    static propTypes = {};
+    static propTypes = {
+        general:   PropTypes.instanceOf( General ).isRequired,
+        archetype: PropTypes.instanceOf( Archetype ).isRequired,
+        vampire:   PropTypes.instanceOf( Vampire ).isRequired
+    };
 
     static contextTypes = {};
 
-    constructor( props ) {
-        super( props );
+    constructor() {
+        super();
+    }
+
+    genValueLink( name:string, fieldName:string ) {
+        const obj = this.props[name];
+        return new ValueLink(
+            obj[fieldName], newValue => {
+                obj[fieldName] = newValue;
+                const newState = {};
+                newState[name] = obj;
+                this.setState( newState );
+            }
+        );
+    }
+
+    genReadOnlyValueLink( value:object ) {
+        return new ValueLink( value, newValue => {
+
+        } );
     }
 
     render() {
         return (
-            <div className="section">
-                <div className="group">
-                    <div className="col span_4_of_12">
-                        <ul>
-                            <li>Nom:</li>
-                            <li>Joueur:</li>
-                            <li>Chronique:</li>
-                        </ul>
+            <Grid>
+                <Cell>
+                    <div>
+                        <Fields title="Nom :" valueLink={ this.genValueLink('general', 'name') }/>
+                        <Fields title="Joueur :"
+                                valueLink={ this.genReadOnlyValueLink(this.props.general.player.name) }
+                                readOnly={ true }/>
+                        <Fields title="Chronique :" valueLink={ this.genValueLink('general', 'chronic') }/>
                     </div>
-                    <div className="col span_4_of_12">
-                        <ul>
-                            <li>Nature:</li>
-                            <li>Attitude:</li>
-                            <li>Concept:</li>
-                        </ul>
+                </Cell>
+                <Cell>
+                    <div>
+                        <Fields title="Nature :" valueLink={ this.genValueLink('archetype', 'nature') }/>
+                        <Fields title="Attitude :" valueLink={ this.genValueLink('archetype', 'attitude') }/>
+                        <Fields title="Concept :" valueLink={ this.genValueLink('archetype', 'concept') }/>
                     </div>
-                    <div className="col span_4_of_12">
-                        <ul>
-                            <li>Clan:</li>
-                            <li>Génération:</li>
-                            <li>Sire:</li>
-                        </ul>
+                </Cell>
+                <Cell>
+                    <div>
+                        <Fields title="Clan :" valueLink={ this.genValueLink('vampire', 'clan') }/>
+                        <Fields title="Génération :" valueLink={ this.genValueLink('general', 'generation') }/>
+                        <Fields title="Sire :" valueLink={ this.genValueLink('general', 'sire') }/>
                     </div>
-                </div>
-            </div>
+                </Cell>
+            </Grid>
         );
     }
 }

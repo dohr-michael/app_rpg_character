@@ -1,30 +1,62 @@
-import Player from 'model/Player';
+import Immutable from 'immutable';
+import Player    from 'model/Player';
 
-class GeneralInformation {
-    player:Player;
-    chronic:string;
+export class CharacterSheetItem {
+    type:string;
     name:string;
+    value:any;
+    subItems:Immutable.List<CharacterSheetItem> = Immutable.List();
+
+    withType( type:string ) {
+        this.type = type;
+        return this;
+    }
+
+    withName( name:string ) {
+        this.name = name;
+        return this;
+    }
+
+    withValue( value:any ) {
+        this.value = value;
+        return this;
+    }
+
+    withSubItems( items:Array<CharacterSheetItem> ) {
+        this.subItems = Immutable.List( items || [] );
+        return this;
+    }
+
+    toJSON() {
+        return {
+            type:     this.type,
+            name:     this.name,
+            value:    this.value,
+            subItems: this.subItems
+        };
+    }
 }
 
-class Archetype {
-    nature:string;
-    attitude:string;
-    concept:string;
-}
-
-class VampireInformation {
-    clan:string;
-    generation:int;
-    sire:string;
-}
-
-/**
- *
- */
 export default class CharacterSheet {
-    // General information.
     id:string;
-    general:GeneralInformation = new GeneralInformation();
-    archetype:Archetype = new Archetype();
-    vampire:VampireInformation = new VampireInformation();
+    player:Player;
+    items:Immutable.List<CharacterSheetItem> = Immutable.List();
+
+    withPlayer( player:Player ) {
+        this.player = player;
+        return this;
+    }
+
+    withItems( items:Array<CharacterSheetItem> ) {
+        this.items = Immutable.List( items || [] );
+        return this;
+    }
+
+    toJSON() {
+        return {
+            id:     this.id,
+            player: this.player,
+            items:  this.items.toArray()
+        };
+    }
 }
