@@ -91,7 +91,6 @@ class GroupItemView extends ItemView {
     }
 
     render() {
-        console.log( this.props );
         const isRoot = this.props.rule.name.split( '.' ).length <= 1;
         const path = this.itemPath;
         const message = this.context.intl.getMessage( `${path}`, null );

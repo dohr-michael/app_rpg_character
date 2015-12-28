@@ -39,20 +39,10 @@ class View extends Component {
                     <div className={styles['content']}>
                         { this.props.children }
                     </div>
-                    <div className={styles['nav']}>
-                        <FormattedDate
-                            value={new Date()}
-                            day="numeric"
-                            month="long"
-                            year="numeric"/>
-                    </div>
-                    <div className={styles['ads']}>
-                        ads
-                    </div>
+                    <div className={styles['nav']}/>
+                    <div className={styles['ads']}/>
                 </div>
-                <div className={styles['footer']}>
-                    footer
-                </div>
+                <div className={styles['footer']}/>
             </div>
         );
     }
