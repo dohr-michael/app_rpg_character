@@ -1,0 +1,473 @@
+{
+  "_links": {
+    "natures": "/api/vampire/natures.json",
+    "clans": "/api/vampire/clans.json"
+  },
+  "items": [
+    {
+      "type": "group",
+      "name": "general",
+      "subItems": [
+        {
+          "type": "group",
+          "name": "information",
+          "subItems": [
+            {
+              "type": "string",
+              "name": "name"
+            },
+            {
+              "type": "player",
+              "name": "player"
+            },
+            {
+              "type": "string",
+              "name": "chronicle"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "name": "archetype",
+          "subItems": [
+            {
+              "type": "oneOf",
+              "name": "nature",
+              "_meta": {
+                "withFree": true,
+                "freeType": "string"
+              },
+              "_links": {
+                "values": "natures"
+              }
+            },
+            {
+              "type": "oneOf",
+              "name": "attitude",
+              "_meta": {
+                "withFree": true,
+                "freeType": "string"
+              },
+              "_links": {
+                "values": "natures"
+              }
+            },
+            {
+              "type": "string",
+              "name": "concept"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "name": "vampire",
+          "subItems": [
+            {
+              "type": "oneOf",
+              "name": "clan",
+              "_links": {
+                "values": "clans"
+              }
+            },
+            {
+              "type": "string",
+              "name": "generation",
+              "subItems": []
+            },
+            {
+              "type": "string",
+              "name": "sire",
+              "subItems": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "attributes",
+      "subItems": [
+        {
+          "type": "group",
+          "name": "physical",
+          "subItems": [
+            {
+              "type": "integer",
+              "name": "strength",
+              "_meta": {
+                "min": 1,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "dexterity",
+              "_meta": {
+                "min": 1,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "stamina",
+              "_meta": {
+                "min": 1,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "name": "social",
+          "subItems": [
+            {
+              "type": "integer",
+              "name": "charisma",
+              "_meta": {
+                "min": 1,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "manipulation",
+              "_meta": {
+                "min": 1,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "appearance",
+              "_meta": {
+                "min": 1,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "name": "mental",
+          "subItems": [
+            {
+              "type": "integer",
+              "name": "perception",
+              "_meta": {
+                "min": 1,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "intelligence",
+              "_meta": {
+                "min": 1,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "wits",
+              "_meta": {
+                "min": 1,
+                "max": 10
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "next": [
+    {
+      "type": "group",
+      "name": "abilities",
+      "subItems": [
+        {
+          "type": "group",
+          "name": "talents",
+          "_meta": {
+            "withFree": true,
+            "freeType": "integer",
+            "freeMeta": {
+              "min": 0,
+              "max": 10
+            }
+          },
+          "subItems": [
+            {
+              "type": "integer",
+              "name": "alertness",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "athletics",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "awareness",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "brawl",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "empathy",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "expression",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "intimidation",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "leadership",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "streetwise",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "subterfuge",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "name": "skills",
+          "_meta": {
+            "withFree": true,
+            "freeType": "integer",
+            "freeMeta": {
+              "min": 0,
+              "max": 10
+            }
+          },
+          "subItems": [
+            {
+              "type": "integer",
+              "name": "animalken",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "crafts",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "drive",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "etiquette",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "firearms",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "larceny",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "melee",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "performance",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "stealth",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "survival",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "name": "knowledges",
+          "_meta": {
+            "withFree": true,
+            "freeType": "integer",
+            "freeMeta": {
+              "min": 0,
+              "max": 10
+            }
+          },
+          "subItems": [
+            {
+              "type": "integer",
+              "name": "academics",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "computer",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "finance",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "investigation",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "law",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "medicine",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "occult",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "politics",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "science",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            },
+            {
+              "type": "integer",
+              "name": "technology",
+              "_meta": {
+                "min": 0,
+                "max": 10
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

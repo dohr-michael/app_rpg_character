@@ -3,7 +3,7 @@ import React, { Component, PropTypes }  from 'react';
 import classNames                       from 'classnames';
 import styles                           from './Header.scss';
 import Grid, { Cell }                   from 'components/Grid';
-
+import * as Actions                     from './Actions';
 import Player                           from 'model/Player';
 
 class Title extends Component {

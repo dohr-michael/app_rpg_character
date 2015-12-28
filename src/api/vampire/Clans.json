@@ -1,0 +1,56 @@
+{
+  "values": [
+    {
+      "name": "assamite",
+      "icon": ""
+    },
+    {
+      "name": "brujah",
+      "icon": ""
+    },
+    {
+      "name": "followers_of_set",
+      "icon": ""
+    },
+    {
+      "name": "gangrel",
+      "icon": ""
+    },
+    {
+      "name": "giovanni",
+      "icon": ""
+    },
+    {
+      "name": "lasombra",
+      "icon": ""
+    },
+    {
+      "name": "malkavian",
+      "icon": ""
+    },
+    {
+      "name": "nosferatu",
+      "icon": ""
+    },
+    {
+      "name": "ravnos",
+      "icon": ""
+    },
+    {
+      "name": "toreador",
+      "icon": ""
+    },
+    {
+      "name": "tremere",
+      "icon": ""
+    },
+    {
+      "name": "tzimisce",
+      "icon": ""
+    },
+    {
+      "name": "ventrue",
+      "icon": ""
+    }
+  ]
+}

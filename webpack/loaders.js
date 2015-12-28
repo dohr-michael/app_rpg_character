@@ -8,7 +8,7 @@ const DEV = process.env.NODE_ENV === 'dev';
 const jsLoader = [
     'babel-loader?presets[]=es2015,presets[]=stage-0,presets[]=react'
 ];
-const fileLoader = 'file-loader?name=[path][name].[ext]';
+var fileLoader = 'file-loader?name=[path][name].[ext]';
 const htmlLoader = [
     'file-loader?name=[path][name].[ext]',
     'template-html-loader?' + [
@@ -29,6 +29,7 @@ const sassParams = [
     'includePaths[]=' + path.resolve( __dirname, '../node_modules' )
 ];
 if( DEV ) {
+    fileLoader = 'file-loader?name=[path][name].[ext]';
     sassParams.push( 'sourceMap', 'sourceMapContents=true' );
     sassLoader = [
         'style-loader',
@@ -62,6 +63,10 @@ module.exports = [
     },
     {
         test:   /\.jpe?g$|\.gif$|\.png$|\.ico|\.svg$|\.woff2?$|\.ttf$|\.otf$|\.eot$/,
+        loader: fileLoader
+    },
+    {
+        test: /\.json/,
         loader: fileLoader
     },
     {

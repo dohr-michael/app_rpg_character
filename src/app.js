@@ -1,8 +1,7 @@
 // Modules
 import React                             from 'react';
-import { Router, Route, IndexRoute }     from 'react-router'
+import { Router, Route, IndexRoute }     from 'react-router';
 import { render }                        from 'react-dom';
-
 
 // App imports.
 import 'app.scss';

@@ -12,7 +12,7 @@ const PROFILE = process.env.PROFILE || '';
 const jsBundle = path.join( 'js', util.format( '[name].%s.js', pkg.version ) );
 const entries = {
     app:       ['./app.js'],
-    vendors:   ['react', 'react-dom', 'react-router', 'flux', 'history', 'lodash'],
+    vendors:   ['react', 'react-dom', 'react-router', 'react-intl', 'flux', 'history', 'lodash'],
     polyfills: ['babel-polyfill', 'whatwg-fetch']
 };
 
@@ -51,7 +51,7 @@ module.exports = {
         autoprefixer
     ],
     devServer: {
-        contentBase: path.resolve( pkg.config.buildDir ),
+        contentBase: context,
         reload:      util.format( 'http://%s:%d', pkg.config.devHost, pkg.config.devPort ),
         hot:         true,
         noInfo:      true,
