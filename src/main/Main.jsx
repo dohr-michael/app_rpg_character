@@ -5,7 +5,6 @@ import styles                           from './Main.scss';
 import ViewStoreListener                from 'utils/ViewStoreListener';
 import MainStore                        from './MainStore';
 import Header                           from './Header';
-import messages                         from 'i18n/messages';
 
 class View extends Component {
 
@@ -69,7 +68,7 @@ export default class Main extends Component {
 
     render() {
         return (
-            <IntlProvider locale={ this.state.locale } messages={ messages[this.state.locale] || {} }>
+            <IntlProvider locale={ this.state.locale } messages={ this.state.messages || {} }>
                 <View player={ this.state.player }>
                     { this.props.children }
                 </View>

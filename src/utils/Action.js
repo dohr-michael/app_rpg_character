@@ -1,7 +1,7 @@
 import { guid }       from 'utils/tools';
 import { dispatch }   from 'utils/Dispatcher';
 
-class ActionExecutor {
+export class ActionExecutor {
     successName:string;
     failureName:string;
     _promise:Promise;
@@ -59,7 +59,7 @@ export default class Action {
             if( callback ) {
                 executor.promise = callback( ...args );
             }
-            dispatch( this.guid, args );
+            dispatch( this.guid, args.concat( executor ) );
             return executor;
         };
 

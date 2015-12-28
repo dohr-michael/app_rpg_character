@@ -1,28 +1,27 @@
-import _                                        from 'lodash';
-import React, { Component, PropTypes }          from 'react';
-import classNames                               from 'classnames';
-import Grid, { Cell }                           from 'components/Grid';
-
-import ViewStoreListener                        from 'utils/ViewStoreListener';
-import CharacterSheet,{ CharacterSheetItem }    from 'model/CharacterSheet';
-import Fields, { ValueLink }                    from 'components/Fields';
-import MainStore                                from './MainStore';
-import * as Actions                             from './Actions';
-import styles                                   from './Main.scss';
-import * as tools                               from 'utils/tools';
-import ItemFactory                              from './items/ItemFactory';
+import _                                from 'lodash';
+import React, { Component, PropTypes }  from 'react';
+import classNames                       from 'classnames';
+import Grid, { Cell }                   from 'components/Grid';
+import * as tools                       from 'utils/tools';
+import ViewStoreListener                from 'utils/ViewStoreListener';
+import CharacterSheetRules              from 'model/CharacterSheetRules';
+import CharacterSheet                   from 'model/CharacterSheet';
+import MainStore                        from './MainStore';
+import * as Actions                     from './Actions';
+import styles                           from './Main.scss';
+import ItemFactory                      from './ItemFactory';
 
 class CharacterSheetView extends Component {
 
     static propTypes = {
         characterSheet: PropTypes.instanceOf( CharacterSheet ).isRequired,
-        ruleSystem:     PropTypes.string.isRequired
+        ruleSystem:     PropTypes.instanceOf( CharacterSheetRules ).isRequired
     };
 
     render() {
         let items;
-        if( this.props.characterSheet.items ) {
-            items = this.props.characterSheet.items.map( item => ItemFactory( item, this.props.ruleSystem ) );
+        if( this.props.ruleSystem.rules ) {
+            items = this.props.ruleSystem.rules.map( item => ItemFactory( this.props.ruleSystem.system, item, this.props.characterSheet ) );
         }
         return (
             <div>
@@ -46,7 +45,7 @@ export default class Main extends Component {
     }
 
     componentDidMount() {
-        Actions.initCreation();
+        Actions.initCreation( 'vampire' );
     }
 
     render() {

@@ -3,15 +3,16 @@
     "natures": "/api/vampire/natures.json",
     "clans": "/api/vampire/clans.json"
   },
+  "_i18n": "/api/vampire/i18n.json",
   "items": [
     {
       "type": "group",
       "name": "general",
-      "subItems": [
+      "items": [
         {
           "type": "group",
           "name": "information",
-          "subItems": [
+          "items": [
             {
               "type": "string",
               "name": "name"
@@ -29,7 +30,7 @@
         {
           "type": "group",
           "name": "archetype",
-          "subItems": [
+          "items": [
             {
               "type": "oneOf",
               "name": "nature",
@@ -38,7 +39,7 @@
                 "freeType": "string"
               },
               "_links": {
-                "values": "natures"
+                "options": "natures"
               }
             },
             {
@@ -49,7 +50,7 @@
                 "freeType": "string"
               },
               "_links": {
-                "values": "natures"
+                "options": "natures"
               }
             },
             {
@@ -61,23 +62,23 @@
         {
           "type": "group",
           "name": "vampire",
-          "subItems": [
+          "items": [
             {
               "type": "oneOf",
               "name": "clan",
               "_links": {
-                "values": "clans"
+                "options": "clans"
               }
             },
             {
               "type": "string",
               "name": "generation",
-              "subItems": []
+              "items": []
             },
             {
               "type": "string",
               "name": "sire",
-              "subItems": []
+              "items": []
             }
           ]
         }
@@ -86,11 +87,11 @@
     {
       "type": "group",
       "name": "attributes",
-      "subItems": [
+      "items": [
         {
           "type": "group",
           "name": "physical",
-          "subItems": [
+          "items": [
             {
               "type": "integer",
               "name": "strength",
@@ -120,7 +121,7 @@
         {
           "type": "group",
           "name": "social",
-          "subItems": [
+          "items": [
             {
               "type": "integer",
               "name": "charisma",
@@ -150,7 +151,7 @@
         {
           "type": "group",
           "name": "mental",
-          "subItems": [
+          "items": [
             {
               "type": "integer",
               "name": "perception",
@@ -184,7 +185,7 @@
     {
       "type": "group",
       "name": "abilities",
-      "subItems": [
+      "items": [
         {
           "type": "group",
           "name": "talents",
@@ -196,7 +197,7 @@
               "max": 10
             }
           },
-          "subItems": [
+          "items": [
             {
               "type": "integer",
               "name": "alertness",
@@ -290,7 +291,7 @@
               "max": 10
             }
           },
-          "subItems": [
+          "items": [
             {
               "type": "integer",
               "name": "animalken",
@@ -384,7 +385,7 @@
               "max": 10
             }
           },
-          "subItems": [
+          "items": [
             {
               "type": "integer",
               "name": "academics",

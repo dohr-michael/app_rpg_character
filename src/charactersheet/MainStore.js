@@ -1,13 +1,16 @@
-import * as Api       from 'api/VampireApi';
-import Store          from 'utils/Store';
-import * as Actions   from 'charactersheet/Actions';
-import Player         from 'model/Player';
-import CharacterSheet from 'model/CharacterSheet';
-import * as Vampire   from 'model/VampireCharacter';
-import AppMainStore   from 'main/MainStore';
+import _                   from 'lodash';
+import * as Api            from 'api/RulesApi';
+import Store               from 'utils/Store';
+import * as Actions        from 'charactersheet/Actions';
+import AppMainStore        from 'main/MainStore';
+import * as MainActions    from 'main/Actions';
+import Player              from 'model/Player';
+import CharacterSheet      from 'model/CharacterSheet';
+import CharacterSheetRules from 'model/CharacterSheetRules';
 
 class MainStore extends Store {
-    ruleSystem:string = 'vampire';
+    rules:Map = new Map();
+    ruleSystem:CharacterSheetRules;
     characterSheet:CharacterSheet;
 
     constructor() {
@@ -15,12 +18,23 @@ class MainStore extends Store {
         this.listenOf( Actions.initCreation, this.initCreation.bind( this ) );
     }
 
-    initCreation() {
-        Api.getCharacterSheetRules( AppMainStore.player )
-            .then( characterSheet => {
-                this.characterSheet = characterSheet;
-                this.emitChange();
-            } );
+    initCreation( ruleSystem ) {
+        const emit = () => {
+            this.ruleSystem = this.rules.get( ruleSystem );
+            this.characterSheet = this.ruleSystem.characterSheetFactory();
+            this.emitChange();
+        };
+        this.ruleSystem = ruleSystem;
+        if( this.rules.has( ruleSystem ) ) {
+            emit();
+        } else {
+            Api.getRules( ruleSystem )
+                .then( ( result:CharacterSheetRules ) => {
+                    this.rules.set( ruleSystem, result );
+                    MainActions.addTranslation( ruleSystem, result.i18n );
+                    emit();
+                } );
+        }
     }
 
 

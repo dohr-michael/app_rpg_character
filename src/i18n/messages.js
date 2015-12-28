@@ -3,8 +3,8 @@ import { addLocaleData }   from 'react-intl';
 import baseEn              from 'react-intl/lib/locale-data/en';
 import baseFr              from 'react-intl/lib/locale-data/fr';
 
-import en                  from './en';
-import fr                  from './fr';
+import * as en             from './en';
+import * as fr             from './fr';
 
 addLocaleData( baseEn );
 addLocaleData( baseFr );

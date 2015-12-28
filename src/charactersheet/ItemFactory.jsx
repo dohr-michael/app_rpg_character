@@ -5,21 +5,23 @@ import Grid, { Cell }                   from 'components/Grid';
 import { SelectField,
     StringField, ValueLink,
     IntegerField }                      from 'components/Fields';
-import { CharacterSheetItem }           from 'model/CharacterSheet';
+import CharacterSheet                   from 'model/CharacterSheet';
+import { Rule, Option }                 from 'model/CharacterSheetRules';
 import * as tools                       from 'utils/tools';
 
 /**
  * Factory.
- * @param item to render.
- * @param path current path
+ * @param system
+ * @param rule to render.
+ * @param characterSheet
  * @returns {*}
  */
-function ItemFactory( item:CharacterSheetItem, path:string ) {
+function ItemFactory( system:string, rule:Rule, characterSheet:CharacterSheet ) {
     let result;
     const props = {
-        key: tools.guid(), item, path
+        key: tools.guid(), system, rule, characterSheet
     };
-    switch( item.type ) {
+    switch( rule.type ) {
         case 'group':
             result = <GroupItemView { ...props }/>;
             break;
@@ -54,12 +56,13 @@ class ItemView extends Component {
     };
 
     static propTypes = {
-        item: PropTypes.instanceOf( CharacterSheetItem ).isRequired,
-        path: PropTypes.string.isRequired
+        system:         PropTypes.string.isRequired,
+        rule:           PropTypes.instanceOf( Rule ).isRequired,
+        characterSheet: PropTypes.instanceOf( CharacterSheet ).isRequired
     };
 
     get itemPath() {
-        return `${this.props.path}.${this.props.item.name}`;
+        return `${this.props.system}.${this.props.rule.name}`;
     }
 
     constructor( props ) {
@@ -67,14 +70,14 @@ class ItemView extends Component {
     }
 
     createValueLink() {
-        return new ValueLink( this.props.item.value, newValue => {
-            this.props.item.value = newValue;
+        return new ValueLink( this.props.characterSheet.fields.get( this.props.rule.name ), newValue => {
+            this.props.characterSheet.fields.set( this.props.rule.name, newValue );
             this.setState( {} );
         } );
     }
 
     get message() {
-        return this.context.intl.getMessage( `${this.itemPath}.name` );
+        return this.context.intl.getMessage( this.itemPath );
     }
 }
 
@@ -88,9 +91,10 @@ class GroupItemView extends ItemView {
     }
 
     render() {
-        const isRoot = this.props.path.split( '.' ).length <= 1;
+        console.log( this.props );
+        const isRoot = this.props.rule.name.split( '.' ).length <= 1;
         const path = this.itemPath;
-        const message = this.context.intl.getMessage( `${path}.name`, null );
+        const message = this.context.intl.getMessage( `${path}`, null );
         const title = message ? (
             <Grid>
                 <Cell full={true}>
@@ -99,7 +103,7 @@ class GroupItemView extends ItemView {
                 </Cell>
             </Grid>
         ) : null;
-        const subItems = this.props.item.subItems.map( item => ItemFactory( item, path ) );
+        const subItems = this.props.rule.rules.map( item => ItemFactory( this.props.system, item, this.props.characterSheet ) );
         if( !isRoot ) {
             return (
                 <Cell>
@@ -148,7 +152,7 @@ class PlayerItemView extends ItemView {
     }
 
     render() {
-        const value = this.props.item.value;
+        const value = this.props.characterSheet.player;
         const valueLink = new ValueLink( value ? value.name : null, () => null );
         return <StringField title={ this.message }
                             valueLink={ valueLink }
@@ -165,15 +169,15 @@ class OneOfItemView extends ItemView {
         super( props );
     }
 
-    optionLabelFunction( item:CharacterSheetItem ) {
+    optionLabelFunction( item:Option ) {
         const path = `${this.itemPath}.${item.name}`;
-        return this.context.intl.getMessage( `${path}.name`, item.name );
+        return this.context.intl.getMessage( `${path}`, item.name );
     }
 
     render() {
         return <SelectField title={ this.message }
                             allowMultiSelect={ false }
-                            options={ this.props.item.values.toArray() }
+                            options={ this.props.rule.options.toArray() }
                             valueLink={ this.createValueLink() }
                             optionLabelFunction={ this.optionLabelFunction.bind( this ) }/>;
     }
@@ -188,7 +192,7 @@ class IntegerItemView extends ItemView {
     render() {
         return <IntegerField title={ this.message }
                              valueLink={ this.createValueLink() }
-                             min={ this.props.item.meta.get('min') }
-                             max={ this.props.item.meta.get('max') }/>
+                             min={ this.props.rule.meta.get('min') }
+                             max={ this.props.rule.meta.get('max') }/>
     }
 }
