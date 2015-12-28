@@ -16,12 +16,13 @@ class MainStore extends Store {
     constructor() {
         super();
         this.listenOf( Actions.initCreation, this.initCreation.bind( this ) );
+        this.listenOf( Actions.save.success, this.save.bind( this ) );
     }
 
     initCreation( ruleSystem ) {
         const emit = () => {
             this.ruleSystem = this.rules.get( ruleSystem );
-            this.characterSheet = this.ruleSystem.characterSheetFactory();
+            this.characterSheet = this.ruleSystem.characterSheetFactory().withPlayer( AppMainStore.player );
             this.emitChange();
         };
         this.ruleSystem = ruleSystem;
@@ -37,6 +38,9 @@ class MainStore extends Store {
         }
     }
 
+    save( characterSheet:CharacterSheet ) {
+        console.log( JSON.stringify( characterSheet ) );
+    }
 
     get states() {
         return {

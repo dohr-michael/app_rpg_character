@@ -1,4 +1,5 @@
 import _                              from 'lodash';
+import CharacterSheet                 from 'model/CharacterSheet';
 import CharacterSheetRules            from 'model/CharacterSheetRules';
 import Player                         from 'model/Player';
 import * as Formatter                 from 'api/model/CharacterSheetRulesFormatter';
@@ -31,4 +32,9 @@ export function getRules( ruleSystem ):Promise<CharacterSheetRules> {
         then( json => {
             return Formatter.toCharacterSheetRules( json, ruleSystem );
         } );
+}
+
+export function save( ruleSystem:string, characterSheet:CharacterSheet ):Promise<CharacterSheet> {
+    console.log( ruleSystem );
+    console.log( JSON.stringify( characterSheet ) );
 }

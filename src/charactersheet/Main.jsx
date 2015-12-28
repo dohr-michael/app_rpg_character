@@ -65,6 +65,7 @@ export default class Main extends Component {
         return (
             <div className={classNames(styles['core'])}>
                 { comp }
+                <button onClick={() => Actions.save(this.state.ruleSystem, this.state.characterSheet)}>Save</button>
             </div>
         );
     }
