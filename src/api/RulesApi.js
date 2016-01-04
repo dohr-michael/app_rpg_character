@@ -5,22 +5,24 @@ import Player                         from 'model/Player';
 import * as Formatter                 from 'api/model/CharacterSheetRulesFormatter';
 
 
+const baseUrl = 'http://localhost:9000';
+
 function getLinks( links:object ):Promise {
     const urls = _.values( links );
     const keys = _.keys( links );
     return Promise.all(
-        urls.map( url => fetch( url )
+        urls.map( url => fetch( `${baseUrl}${url}` )
             .then( result => result.json() )
             .then( json => json.values.map( Formatter.toOption ) ) )
     ).then( values => _.zipObject( keys, values ) );
 }
 
 function getI18n( url:string ):Promise {
-    return url ? fetch( url ).then( result => result.json() ) : Promise.success( {} );
+    return url ? fetch( `${baseUrl}${url}` ).then( result => result.json() ) : Promise.success( {} );
 }
 
 export function getRules( ruleSystem ):Promise<CharacterSheetRules> {
-    return fetch( require( 'api/vampire/rules.json' ) )
+    return fetch( `${baseUrl}/api/rules/${ruleSystem}` )
         .then( result => result.json() )
         .then( json => Promise.all( [getLinks( json._links || {} ), getI18n( json._i18n || null )] )
             .then( items => {
@@ -35,6 +37,6 @@ export function getRules( ruleSystem ):Promise<CharacterSheetRules> {
 }
 
 export function save( ruleSystem:string, characterSheet:CharacterSheet ):Promise<CharacterSheet> {
-    console.log( ruleSystem );
-    console.log( JSON.stringify( characterSheet ) );
+    return fetch( `${baseUrl}`, { method: 'POST', body: characterSheet } )
+        .then( result => result.json() );
 }

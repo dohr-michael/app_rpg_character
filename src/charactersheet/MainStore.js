@@ -2,7 +2,6 @@ import _                   from 'lodash';
 import * as Api            from 'api/RulesApi';
 import Store               from 'utils/Store';
 import * as Actions        from 'charactersheet/Actions';
-import AppMainStore        from 'main/MainStore';
 import * as MainActions    from 'main/Actions';
 import Player              from 'model/Player';
 import CharacterSheet      from 'model/CharacterSheet';
@@ -19,10 +18,10 @@ class MainStore extends Store {
         this.listenOf( Actions.save.success, this.save.bind( this ) );
     }
 
-    initCreation( ruleSystem ) {
+    initCreation( ruleSystem, playerName ) {
         const emit = () => {
             this.ruleSystem = this.rules.get( ruleSystem );
-            this.characterSheet = this.ruleSystem.characterSheetFactory().withPlayer( AppMainStore.player );
+            this.characterSheet = this.ruleSystem.characterSheetFactory().withPlayer( new Player().withName( playerName ) );
             this.emitChange();
         };
         this.ruleSystem = ruleSystem;

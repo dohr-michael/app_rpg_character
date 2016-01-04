@@ -7,6 +7,7 @@ import { render }                        from 'react-dom';
 import 'app.scss';
 import 'index.html';
 import Main                              from 'main/Main';
+import HomeMain                          from 'home/Main';
 import CharacterSheetMain                from 'charactersheet/Main';
 
 //Needed for React Developer Tools
@@ -16,7 +17,8 @@ window.React = React;
 render( (
     <Router>
         <Route path="/" component={ Main }>
-            <IndexRoute component={ CharacterSheetMain }/>
+            <IndexRoute component={ HomeMain }/>
+            <Route path="/characterSheet" component={ CharacterSheetMain }/>
         </Route>
     </Router>
 ), document.getElementById( 'app' ) );
