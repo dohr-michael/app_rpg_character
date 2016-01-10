@@ -8,3 +8,8 @@ function s4() {
 export function guid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
+
+
+export function hash() {
+    return Math.random().toString(36).substr(2,9);
+}

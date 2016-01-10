@@ -11,18 +11,18 @@ function getLinks( links:object ):Promise {
     const urls = _.values( links );
     const keys = _.keys( links );
     return Promise.all(
-        urls.map( url => fetch( `${baseUrl}${url}` )
+        urls.map( url => fetch( url )
             .then( result => result.json() )
             .then( json => json.values.map( Formatter.toOption ) ) )
     ).then( values => _.zipObject( keys, values ) );
 }
 
 function getI18n( url:string ):Promise {
-    return url ? fetch( `${baseUrl}${url}` ).then( result => result.json() ) : Promise.success( {} );
+    return url ? fetch( url ).then( result => result.json() ) : Promise.success( {} );
 }
 
 export function getRules( ruleSystem ):Promise<CharacterSheetRules> {
-    return fetch( `${baseUrl}/api/rules/${ruleSystem}` )
+    return fetch( require( 'api/vampire/rules.json' ) )
         .then( result => result.json() )
         .then( json => Promise.all( [getLinks( json._links || {} ), getI18n( json._i18n || null )] )
             .then( items => {

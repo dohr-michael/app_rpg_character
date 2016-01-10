@@ -1,27 +1,28 @@
-import _                                from 'lodash';
 import React, { Component, PropTypes }  from 'react';
 import classNames                       from 'classnames';
 import styles                           from './Grid.scss';
 
+export const GridStyles = styles;
+
 export class Cell extends Component {
 
     static propTypes = {
-        top:     PropTypes.bool,
-        bottom:  PropTypes.bool,
-        center:  PropTypes.bool,
-        full:    PropTypes.bool,
-        half:    PropTypes.bool,
-        third:   PropTypes.bool,
+        top: PropTypes.bool,
+        bottom: PropTypes.bool,
+        center: PropTypes.bool,
+        full: PropTypes.bool,
+        half: PropTypes.bool,
+        third: PropTypes.bool,
         quarter: PropTypes.bool
     };
 
     static defaultProps = {
-        top:     false,
-        bottom:  false,
-        center:  false,
-        full:    false,
-        half:    false,
-        third:   false,
+        top: false,
+        bottom: false,
+        center: false,
+        full: false,
+        half: false,
+        third: false,
         quarter: false
     };
 
@@ -35,7 +36,7 @@ export class Cell extends Component {
         classes[styles['cell-third']] = this.props.third;
         classes[styles['cell-quarter']] = this.props.quarter;
         return (
-            <div className={classNames( this.props.className, styles['cell'], classes )}>
+            <div className={classNames( this.props.className, styles.cell, classes )}>
                 { this.props.children }
             </div>
         );
@@ -50,52 +51,52 @@ export class Cell extends Component {
 export default class Grid extends Component {
 
     static propTypes = {
-        gutter:       PropTypes.bool,
-        top:          PropTypes.bool,
-        bottom:       PropTypes.bool,
-        center:       PropTypes.bool,
+        gutter: PropTypes.bool,
+        top: PropTypes.bool,
+        bottom: PropTypes.bool,
+        center: PropTypes.bool,
         // normal
-        fit:          PropTypes.bool,
-        full:         PropTypes.bool,
-        half:         PropTypes.bool,
-        third:        PropTypes.bool,
-        quarter:      PropTypes.bool,
+        fit: PropTypes.bool,
+        full: PropTypes.bool,
+        half: PropTypes.bool,
+        third: PropTypes.bool,
+        quarter: PropTypes.bool,
         // small
-        smallFit:     PropTypes.bool,
-        smallFull:    PropTypes.bool,
-        smallHalf:    PropTypes.bool,
-        smallThird:   PropTypes.bool,
+        smallFit: PropTypes.bool,
+        smallFull: PropTypes.bool,
+        smallHalf: PropTypes.bool,
+        smallThird: PropTypes.bool,
         smallQuarter: PropTypes.bool,
         // large
-        largeFit:     PropTypes.bool,
-        largeFull:    PropTypes.bool,
-        largeHalf:    PropTypes.bool,
-        largeThird:   PropTypes.bool,
+        largeFit: PropTypes.bool,
+        largeFull: PropTypes.bool,
+        largeHalf: PropTypes.bool,
+        largeThird: PropTypes.bool,
         largeQuarter: PropTypes.bool
     };
 
     static defaultProps = {
-        gutter:       false,
-        top:          false,
-        bottom:       false,
-        center:       false,
+        gutter: false,
+        top: false,
+        bottom: false,
+        center: false,
         // normal
-        fit:          false,
-        full:         false,
-        half:         false,
-        third:        false,
-        quarter:      false,
+        fit: false,
+        full: false,
+        half: false,
+        third: false,
+        quarter: false,
         // small
-        smallFit:     false,
-        smallFull:    false,
-        smallHalf:    false,
-        smallThird:   false,
+        smallFit: false,
+        smallFull: false,
+        smallHalf: false,
+        smallThird: false,
         smallQuarter: false,
         // large
-        largeFit:     false,
-        largeFull:    false,
-        largeHalf:    false,
-        largeThird:   false,
+        largeFit: false,
+        largeFull: false,
+        largeHalf: false,
+        largeThird: false,
         largeQuarter: false
     };
 
@@ -125,7 +126,7 @@ export default class Grid extends Component {
         classes[styles['large-grid-quarter']] = this.props.largeQuarter;
 
         return (
-            <div className={classNames( this.props.className, styles['grid'], classes )}>
+            <div className={classNames( this.props.className, styles.grid, classes )}>
                 { this.props.children }
             </div>
         );

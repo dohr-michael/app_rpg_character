@@ -1,24 +1,26 @@
 // Modules
-import React                             from 'react';
-import { Router, Route, IndexRoute }     from 'react-router';
-import { render }                        from 'react-dom';
-
+import React                               from 'react';
+import { Router, Route, useRouterHistory } from 'react-router';
+import { createHashHistory }               from 'history';
 // App imports.
 import 'app.scss';
-import 'index.html';
-import Main                              from 'main/Main';
-import HomeMain                          from 'home/Main';
-import CharacterSheetMain                from 'charactersheet/Main';
+import AuthLayout                          from './auth/AuthLayout';
+import Main                                from './views/main/Main';
+import Home                                from './views/home/Home';
 
-//Needed for React Developer Tools
+// Needed for React Developer Tools
 window.React = React;
 
+const appHistory = useRouterHistory( createHashHistory )({ queryKey: false });
 
-render( (
-    <Router>
-        <Route path="/" component={ Main }>
-            <IndexRoute component={ HomeMain }/>
-            <Route path="/characterSheet" component={ CharacterSheetMain }/>
+
+export default (
+    <Router history={ appHistory }>
+        <Route component={ AuthLayout }>
+            <Route component={ Main }>
+                <Route path="/" component={ Home }/>
+                <Route path="/*" component={ Home }/>
+            </Route>
         </Route>
     </Router>
-), document.getElementById( 'app' ) );
+);

@@ -1,6 +1,8 @@
 import _                                from 'lodash';
 import React, { Component, PropTypes }  from 'react';
 import { FormattedDate, IntlProvider }  from 'react-intl';
+import { AuthListener }                 from '../auth-back/AppAuthStore';
+import * as AuthAction                  from '../auth-back/AppAuthActions';
 import styles                           from './Main.scss';
 import ViewStoreListener                from 'utils/ViewStoreListener';
 import MainStore                        from './MainStore';
@@ -9,12 +11,18 @@ import Header                           from './Header';
 class View extends Component {
 
     static contextTypes = {
-        intl: PropTypes.object
+        intl: PropTypes.object,
+        router: PropTypes.object
     };
 
     static childContextTypes = {
         intl: PropTypes.object
     };
+
+    constructor( props ) {
+        super( props );
+        AuthAction.authSuccess.listen( ::this.authSuccess );
+    }
 
     getChildContext() {
         const intl = {
@@ -30,7 +38,15 @@ class View extends Component {
         };
     }
 
+    authSuccess( newRoute ) {
+        this.context.router.push( newRoute );
+    }
+
     render() {
+        if( AuthListener.isAuthCallBack() ) {
+            AuthListener.endAuth();
+            return null;
+        }
         return (
             <div className={styles['core']}>
                 <Header className={styles['header']}
