@@ -49,7 +49,10 @@ class AuthStore extends Store {
     }
 
     showLoginForm() {
-        this.lock.show({ container: 'login-container' }, ( err, profile, token ) => {
+        this.lock.show({
+            container: 'login-container',
+            connections: ['google-oauth2']
+        }, ( err, profile, token ) => {
             if ( !err ) {
                 const identity = ( profile.identities || []).find( obj => profile.user_id === `${obj.provider}|${obj.user_id}` );
                 this.expirationDate = moment().add( identity ? identity.expires_in : 30, 'second' );

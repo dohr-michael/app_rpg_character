@@ -9,20 +9,21 @@ import * as fr             from './fr';
 addLocaleData( baseEn );
 addLocaleData( baseFr );
 
-function transform( item, result = {}, path = '' ) {
+function transform( item, items = {}, path = '' ) {
+    const result = _.assign({}, items );
     _.keys( item ).forEach( key => {
-        const currentPath = (path == '' ? '' : path + '.') + key;
+        const currentPath = ( path === '' ? '' : path + '.' ) + key;
         const value = item[key];
-        if( _.isPlainObject( value ) ) {
+        if ( _.isPlainObject( value )) {
             transform( value, result, currentPath );
         } else {
             result[currentPath] = value;
         }
-    } );
+    });
     return result;
 }
 
 export default {
-    'en': transform( en ),
-    'fr': transform( fr )
-}
+    en: transform( en ),
+    fr: transform( fr )
+};

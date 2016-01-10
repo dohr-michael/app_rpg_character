@@ -35,12 +35,14 @@ export const CHUNKS = [
 
 export const SASS_MODULE_NAME = {
     build: 'localIdentName=[hash:base64:5]&modules',
-    dev:   'localIdentName=[hash:base64:5]&modules'
+    dev:   'localIdentName=[name][hash:base64:2]&modules'
 };
 
 export const STATIC_COPY = [
     { from: path.join( PATHS.src, 'external_lib' ), to: 'external_lib' },
-    { from: path.join( PATHS.src, 'config' ), to: 'config' }
+    { from: path.join( PATHS.src, 'config' ), to: 'config' },
+    { from: path.join( PATHS.node_modules, 'font-awesome/css' ), to: 'font-awesome/css' },
+    { from: path.join( PATHS.node_modules, 'font-awesome/fonts' ), to: 'font-awesome/fonts' }
 ];
 
 export const CONFIG = {
@@ -64,7 +66,7 @@ export const CONFIG = {
                 loader: 'file?name=images/[hash].[ext]'
             },
             {
-                test:   /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9-\.=]+)?$/,
+                test:   /\.(ttf|eot|svg|otf|woff(2)?)(\?[a-z0-9-\.=]+)?$/,
                 loader: 'file?name=fonts/[hash].[ext]'
             },
             {
@@ -76,8 +78,7 @@ export const CONFIG = {
     sassLoader: {
         includePaths: [
             PATHS.src,
-            PATHS.node_modules,
-            PATHS.node_modules + '/font-awesome/scss'
+            PATHS.node_modules
         ]
     },
     output:     {

@@ -1,7 +1,7 @@
 @import 'mixin';
 
 .core {
-  background-color: rgba(147, 128, 108, .1);
+  border-bottom: 1px solid #f1f1f1;
   .bar {
     padding: 10px 10px;
     & > * {
@@ -19,12 +19,61 @@
       }
     }
     .profile {
-      & > * {
-      }
     }
   }
 }
 
-.title {
-
+.action-menu {
+  .list {
+    height: 0;
+    overflow: hidden;
+    transition: transform .1s cubic-bezier(0.3,0,0,1.3) 0s;
+  }
+  &.show > .list {
+    height: auto;
+  }
+  .display {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    .avatar {
+      width: 24px;
+      border-radius: 100px;
+      vertical-align: middle;
+    }
+    .name {
+      padding-top: 2px;
+    }
+    & > * {
+      margin-right: 10px;
+    }
+  }
+  .list {
+    position: absolute;
+    z-index: 1000;
+    list-style: none;
+    background: #fff;
+    border: 0;
+    border-radius: 3px;
+    min-width: 144px;
+    max-height: 300px;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    padding: 0;
+    text-align: left;
+    li.divider {
+      margin: 0;
+      background-color: rgba(0,0,0,0.1);
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+    }
+    li.action {
+      cursor: pointer;
+      padding-left: 15px;
+    }
+    li {
+      padding: 5px;
+      display: list-item;
+    }
+  }
 }

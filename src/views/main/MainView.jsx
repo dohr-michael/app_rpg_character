@@ -38,10 +38,10 @@ export default class MainView extends ViewContainer< MainViewDefaultProps, MainV
 
     constructor( props:MainViewProps ) {
         super( props );
-        this.state = _.assign( super.state, {
-            profile: AuthStore.profile
-        });
         this.listenTo( AuthStore, this.authChange.bind( this ));
+        this.state = {
+            profile: AuthStore.profile
+        };
     }
 
     state:MainViewState;
@@ -67,23 +67,27 @@ export default class MainView extends ViewContainer< MainViewDefaultProps, MainV
     }
 
     render():?ReactElement {
-        return (
-            <div className={ styles.core }>
-                <HeaderView className={ styles.header } profile={ this.state.profile } />
-                <div className={ styles.body }>
-                    <div className={ styles.content }>
-                        { this.props.children }
+        let result:?ReactElement;
+        if ( this.state.profile ) {
+            result = (
+                <div className={ styles.core }>
+                    <HeaderView className={ styles.header } profile={ this.state.profile }/>
+                    <div className={ styles.body }>
+                        <div className={ styles.content }>
+                            { this.props.children }
+                        </div>
+                        <div className={ styles.nav }>
+                            { this.leftBar }
+                        </div>
+                        <div className={ styles.ads }>
+                            { this.rightBar }
+                        </div>
                     </div>
-                    <div className={ styles.nav }>
-                        { this.leftBar }
-                    </div>
-                    <div className={ styles.ads }>
-                        { this.rightBar }
-                    </div>
+                    <div className={ styles.footer }/>
                 </div>
-                <div className={ styles.footer }/>
-            </div>
-        );
+            );
+        }
+        return result;
     }
 }
 fc( MainView );
